@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="clickHandler"
+            type="com.codersarena.transactionmanagement.MainActivityClickHandler" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+        <GridLayout
+            android:id="@+id/gridLayout2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:rowCount="3">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_row="0"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp">
+
+                <GridLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/download"
+                    android:columnCount="3"
+                    android:rowCount="3">
+
+                    <TextView
+                        android:id="@+id/t1View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="2"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Siddhesh Kushare"
+                        android:textColor="#FBFBF8"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/t2View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+
+                        android:layout_gravity="left"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Balance: \t\u20B90"
+                        android:textColor="#FBFBF8"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+
+
+
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_row="2"
+                        android:layout_column="2"
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="-10dp"
+                        android:src="@drawable/rupay1" />
+
+
+                </GridLayout>
+
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+            android:onClick="@{clickHandler::onFABClicked}"
+            android:src="@drawable/baseline_add_card_24"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
