@@ -40,7 +40,7 @@ public class Repository {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                transactionDAO.insert(transactions);
+                transactionDAO.delete(transactions);
             }
         });
     }

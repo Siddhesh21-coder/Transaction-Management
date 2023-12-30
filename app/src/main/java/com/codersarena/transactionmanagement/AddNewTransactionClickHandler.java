@@ -4,7 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AddNewTransactionClickHandler {
     Transactions transactions;
@@ -16,7 +22,24 @@ public class AddNewTransactionClickHandler {
         this.context = context;
         this.myViewModel = myViewModel;
     }
+    public void onSplitTypeChanged(RadioGroup radioGroup, int checkedId) {
+        RadioButton radioButton = radioGroup.findViewById(checkedId);
 
+        if (radioButton != null) {
+            String selectedType = radioButton.getText().toString();
+            transactions.setType(selectedType.toLowerCase()); // Assuming you want "debit" or "credit"
+        }
+    }
+
+
+    public void onSplitTypeChanged1(RadioGroup radioGroup, int checkedId) {
+        RadioButton radioButton = radioGroup.findViewById(checkedId);
+
+        if (radioButton != null) {
+            String selectedType = radioButton.getText().toString();
+            transactions.setMethod(selectedType.toLowerCase()); // Assuming you want "debit" or "credit"
+        }
+    }
     public void onSubmitBtnClicked(View view)
     {
         if(transactions.getAmount() == null || transactions.getCategory()==null || transactions.getType() == null)
@@ -25,18 +48,25 @@ public class AddNewTransactionClickHandler {
         }
         else {
             Intent i = new Intent(context, MainActivity.class);
+//            Log.v("TAGY",transactions.getType());
+
             i.putExtra("Amount",transactions.getAmount());
             i.putExtra("Type",transactions.getType());
             i.putExtra("Category",transactions.getCategory());
+            String formattedDateTime1="30 Dec";
+            LocalDateTime date = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM HH:mm");
+            String formattedDateTime = date.format(formatter);
+//            Log.v("TAGY",formattedDateTime);
             Transactions t = new Transactions(
                     transactions.getAmount(),
                     transactions.getType(),
                     transactions.getCategory(),
-                    "Cash",
+                    transactions.getMethod(),
                     "For desription purpose",
-                    "29 Dec"
+                    formattedDateTime
             );
-            Log.v("TAGY",t.getAmount()+t.getType()+t.getCategory());
+            Log.v("TAGY",t.getMethod());
             myViewModel.addNewTransaction(t);
             context.startActivity(i);
         }

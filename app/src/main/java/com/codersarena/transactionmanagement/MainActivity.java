@@ -1,19 +1,24 @@
 package com.codersarena.transactionmanagement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codersarena.transactionmanagement.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(List<Transactions> transactions1) {
                         transactions.clear();
                         double sum = 0;
+
                         for(Transactions t: transactions1)
                         {
                             transactions.add(t);
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Log.v("TAGO",t.getType());
                         }
+                        Collections.reverse(transactions);
                         TextView txtView = findViewById(R.id.t2View);
                         String s = "Balance: \t\t\u20B9";
                         txtView.setText(s+String.valueOf(sum));
@@ -67,5 +74,19 @@ public class MainActivity extends AppCompatActivity {
                 });
         myAdapter = new MyAdapter(transactions);
         recyclerView.setAdapter(myAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Transactions t = transactions.get(viewHolder.getAdapterPosition());
+                viewModel.deleteNewTransaction(t);
+                Toast.makeText(MainActivity.this, "Deleted Contact Successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 }
