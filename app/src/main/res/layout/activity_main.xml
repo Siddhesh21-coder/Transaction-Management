@@ -33,7 +33,7 @@
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/download"
+                    android:background="@drawable/back23"
                     android:columnCount="3"
                     android:rowCount="3">
 

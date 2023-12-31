@@ -55,7 +55,7 @@
                     android:layout_margin="10dp"
                     android:layout_marginLeft="20dp"
                     android:text="Siddhesh Kushare"
-                    android:textColor="#FBFBF8"
+                    android:textColor="#FFD700"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
