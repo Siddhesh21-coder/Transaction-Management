@@ -84,15 +84,39 @@
             </androidx.cardview.widget.CardView>
         </GridLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9C9191"
+            android:text="Your Transactions"
+            android:layout_marginTop="19dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
+            />
+
+
+
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="20dp"
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="210dp"
+            android:layout_marginTop="19dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
+            app:layout_constraintVertical_bias="0.104" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            android:text="Spending Story"
+            android:textColor="#9C9191"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -105,6 +129,18 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            app:layout_constraintVertical_bias="0.104" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
