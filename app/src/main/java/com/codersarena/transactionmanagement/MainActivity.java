@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(List<Transactions> transactions1) {
                         transactions.clear();
                         double sum = 0;
-
+                        double cashBalance = 0;
+                        double upiBalance = 0;
                         for(Transactions t: transactions1)
                         {
 
@@ -70,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
                             transactions.add(t);
                             if (t.getType().equalsIgnoreCase("debit"))
                             {
+                                if(t.getMethod().equalsIgnoreCase("cash"))
+                                {
+                                    cashBalance-=Double.parseDouble(t.getAmount());
+                                }
+                                else {
+                                    upiBalance -= Double.parseDouble(t.getAmount());
+                                }
                                 sum-=Double.parseDouble(t.getAmount());
                                 if (categorySumMap.containsKey(t.getCategory())) {
                                     // If yes, add the value to the existing sum
@@ -81,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             else {
+                                if(t.getMethod().equalsIgnoreCase("cash"))
+                                {
+                                    cashBalance+=Double.parseDouble(t.getAmount());
+                                }
+                                else {
+                                    upiBalance += Double.parseDouble(t.getAmount());
+                                }
                                 sum+=Double.parseDouble(t.getAmount());
 
                             }
@@ -106,6 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
                         Collections.reverse(transactions);
                         TextView txtView = findViewById(R.id.t2View);
+                        TextView cashView = findViewById(R.id.cashView);
+                        String cashBalancer = "Cash Balance: \t\t\u20B9";
+                        cashView.setText(cashBalancer+String.valueOf(cashBalance));
+
+                        TextView upiView = findViewById(R.id.upiView);
+                        String upiBalancer = "UPI Balance: \t\t\u20B9";
+                        upiView.setText(upiBalancer+String.valueOf(upiBalance));
                         String s = "Balance: \t\t\u20B9";
                         txtView.setText(s+String.valueOf(sum));
                         myNewAdapter = new MyNewAdapter(transactionCategories);
