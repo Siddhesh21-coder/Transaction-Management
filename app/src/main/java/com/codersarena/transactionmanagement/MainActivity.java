@@ -123,13 +123,17 @@ public class MainActivity extends AppCompatActivity {
                         TextView txtView = findViewById(R.id.t2View);
                         TextView cashView = findViewById(R.id.cashView);
                         String cashBalancer = "Cash Balance: \t\t\u20B9";
-                        cashView.setText(cashBalancer+String.valueOf(cashBalance));
+                        String cashint = String.format("%.2f",cashBalance);
+
+                        cashView.setText(cashBalancer+cashint);
 
                         TextView upiView = findViewById(R.id.upiView);
                         String upiBalancer = "UPI Balance: \t\t\u20B9";
-                        upiView.setText(upiBalancer+String.valueOf(upiBalance));
+                        String upiint = String.format("%.2f",upiBalance);
+                        upiView.setText(upiBalancer+upiint);
                         String s = "Balance: \t\t\u20B9";
-                        txtView.setText(s+String.valueOf(sum));
+                        String bint = String.format("%.2f",sum);
+                        txtView.setText(s+bint);
                         myNewAdapter = new MyNewAdapter(transactionCategories);
                         recyclerView1.setAdapter(myNewAdapter);
                         myAdapter.notifyDataSetChanged();

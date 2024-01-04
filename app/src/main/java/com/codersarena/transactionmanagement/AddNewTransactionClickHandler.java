@@ -36,7 +36,8 @@ public class AddNewTransactionClickHandler {
         RadioButton radioButton = radioGroup.findViewById(checkedId);
 
         if (radioButton != null) {
-            String selectedType = radioButton.getText().toString();
+            String selectedType = radioButton.getText().toString().split(" ")[1];
+            Log.v("Tagy",selectedType);
             transactions.setMethod(selectedType.toLowerCase()); // Assuming you want "debit" or "credit"
         }
     }
@@ -63,7 +64,7 @@ public class AddNewTransactionClickHandler {
                     transactions.getType(),
                     transactions.getCategory(),
                     transactions.getMethod(),
-                    "For desription purpose",
+                    transactions.getDescription(),
                     formattedDateTime
             );
             Log.v("TAGY",t.getMethod());
