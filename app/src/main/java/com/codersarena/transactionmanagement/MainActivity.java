@@ -16,14 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codersarena.transactionmanagement.databinding.ActivityMainBinding;
-
+import java.util.stream.*;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     private TransactionDatabase transactionDatabase;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         double sum = 0;
                         double cashBalance = 0;
                         double upiBalance = 0;
+                        double expenses = 0;
                         for(Transactions t: transactions1)
                         {
 
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             transactions.add(t);
                             if (t.getType().equalsIgnoreCase("debit"))
                             {
+                                expenses+=Double.parseDouble(t.getAmount());
                                 if(t.getMethod().equalsIgnoreCase("cash"))
                                 {
                                     cashBalance-=Double.parseDouble(t.getAmount());
@@ -109,7 +114,17 @@ public class MainActivity extends AppCompatActivity {
                             categorySumMap.put(entry.getKey(), entry.getValue());
                         }
                         transactionCategories.clear();
-                        for (Map.Entry<String, Double> entry : categorySumMap.entrySet()) {
+                        //Sort the keys according to the values
+                        Map<String, Double> sortedHashMap = categorySumMap.entrySet()
+                                .stream()
+                                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new
+                                ));
+                        for (Map.Entry<String, Double> entry : sortedHashMap.entrySet()) {
                             String category = entry.getKey();
                             double sumCategory = entry.getValue();
                             TransactionCategory tcs = new TransactionCategory(category,sumCategory);
@@ -131,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
                         String upiBalancer = "UPI Balance: \t\t\u20B9";
                         String upiint = String.format("%.2f",upiBalance);
                         upiView.setText(upiBalancer+upiint);
-                        String s = "Balance: \t\t\u20B9";
-                        String bint = String.format("%.2f",sum);
+                        String s = "Expenses: \t\t\u20B9";
+                        String bint = String.format("%.2f",expenses);
                         txtView.setText(s+bint);
                         myNewAdapter = new MyNewAdapter(transactionCategories);
                         recyclerView1.setAdapter(myNewAdapter);
